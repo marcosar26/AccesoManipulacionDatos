@@ -1,6 +1,7 @@
 package com.dwes.AccesoManipulacionDatos.controller;
 
 import com.dwes.AccesoManipulacionDatos.dto.SeccionDto;
+import com.dwes.AccesoManipulacionDatos.model.Empleado;
 import com.dwes.AccesoManipulacionDatos.model.Seccion;
 import com.dwes.AccesoManipulacionDatos.service.SeccionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +36,11 @@ public class SeccionController {
     public ResponseEntity<SeccionDto> eliminarSeccion(@RequestParam Long id) {
         SeccionDto sec = seccionService.eliminarSeccion(id);
         return sec == null ? ResponseEntity.badRequest().build() : ResponseEntity.ok(sec);
+    }
+
+    @GetMapping("/buscarEmpleados")
+    public ResponseEntity<List<Empleado>> buscarEmpleadosPorSeccion(@RequestParam Long id) {
+        List<Empleado> empleados = seccionService.buscarEmpleadosPorSeccion(id);
+        return empleados.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(empleados);
     }
 }

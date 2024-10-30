@@ -1,6 +1,7 @@
 package com.dwes.AccesoManipulacionDatos.service;
 
 import com.dwes.AccesoManipulacionDatos.dto.SeccionDto;
+import com.dwes.AccesoManipulacionDatos.model.Empleado;
 import com.dwes.AccesoManipulacionDatos.model.Seccion;
 import com.dwes.AccesoManipulacionDatos.repository.SeccionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +37,12 @@ public class SeccionService {
         Seccion seccion = op.get();
         seccionRepository.delete(seccion);
         return mapToDto(seccion);
+    }
+
+    public List<Empleado> buscarEmpleadosPorSeccion(Long id) {
+        Optional<Seccion> op = seccionRepository.findById(id);
+        if (op.isEmpty()) return List.of();
+        Seccion seccion = op.get();
+        return List.copyOf(seccion.getEmpleados());
     }
 }
