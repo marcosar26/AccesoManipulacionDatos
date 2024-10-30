@@ -26,6 +26,12 @@ public class EmpleadoController {
         return empleados.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(empleados);
     }
 
+    @GetMapping("/getAllData")
+    public ResponseEntity<List<Empleado>> getAllData() {
+        List<Empleado> empleados = empleadoService.getAllData();
+        return empleados.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(empleados);
+    }
+
     @PutMapping("/add")
     public ResponseEntity<EmpleadoDto> addEmpleado(@RequestBody Empleado empleado) {
         EmpleadoDto emp = empleadoService.addEmpleado(empleado);

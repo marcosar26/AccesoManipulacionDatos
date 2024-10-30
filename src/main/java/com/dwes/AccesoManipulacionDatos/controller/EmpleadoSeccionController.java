@@ -23,4 +23,9 @@ public class EmpleadoSeccionController {
     public ResponseEntity<Empleado> asignarEmpleado(@RequestParam Long empleadoId, @RequestParam Long seccionId) {
         return ResponseEntity.ok(empleadoSeccionService.asignarSeccion(empleadoId, seccionId));
     }
+
+    @PostMapping("/cambiarSeccionEmpleado")
+    public ResponseEntity<Empleado> cambiarSeccionEmpleado(@RequestParam Long empleadoId, @RequestParam Long seccionId) {
+        return ResponseEntity.ok(empleadoSeccionService.cambiarSeccionEmpleado(empleadoId, seccionId));
+    }
 }

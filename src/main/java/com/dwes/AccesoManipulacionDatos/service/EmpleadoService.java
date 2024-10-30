@@ -27,6 +27,10 @@ public class EmpleadoService {
         return empleadoRepository.findAll().stream().map(this::mapToDto).toList();
     }
 
+    public List<Empleado> getAllData() {
+        return empleadoRepository.findAll().stream().toList();
+    }
+
     public EmpleadoDto addEmpleado(Empleado empleado) {
         return mapToDto(empleadoRepository.save(empleado));
     }

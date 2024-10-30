@@ -4,6 +4,7 @@ import com.dwes.AccesoManipulacionDatos.model.Empleado;
 import com.dwes.AccesoManipulacionDatos.model.Seccion;
 import com.dwes.AccesoManipulacionDatos.repository.EmpleadoRepository;
 import com.dwes.AccesoManipulacionDatos.repository.SeccionRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ public class EmpleadoSeccionService {
         this.seccionRepository = seccionRepository;
     }
 
+    @Transactional
     public Empleado asignarSeccion(Long empleadoId, Long seccionId) {
         Optional<Empleado> empleadoOpt = empleadoRepository.findById(empleadoId);
         Optional<Seccion> seccionOpt = seccionRepository.findById(seccionId);
@@ -31,6 +33,26 @@ public class EmpleadoSeccionService {
         Empleado empleado = empleadoOpt.get();
         Seccion seccion = seccionOpt.get();
 
+        empleado.getSecciones().add(seccion);
+
+        empleadoRepository.save(empleado);
+
+        return empleado;
+    }
+
+    @Transactional
+    public Empleado cambiarSeccionEmpleado(Long empleadoId, Long seccionId) {
+        Optional<Empleado> empleadoOpt = empleadoRepository.findById(empleadoId);
+        Optional<Seccion> seccionOpt = seccionRepository.findById(seccionId);
+
+        if (empleadoOpt.isEmpty() || seccionOpt.isEmpty()) {
+            throw new IllegalArgumentException("No se encontro el empleado o la seccion");
+        }
+
+        Empleado empleado = empleadoOpt.get();
+        Seccion seccion = seccionOpt.get();
+
+        empleado.getSecciones().clear();
         empleado.getSecciones().add(seccion);
 
         empleadoRepository.save(empleado);
