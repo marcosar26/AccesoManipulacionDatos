@@ -4,10 +4,7 @@ import com.dwes.AccesoManipulacionDatos.model.Empleado;
 import com.dwes.AccesoManipulacionDatos.service.EmpleadoSeccionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/empleados_secciones")
@@ -27,5 +24,10 @@ public class EmpleadoSeccionController {
     @PostMapping("/cambiarSeccionEmpleado")
     public ResponseEntity<Empleado> cambiarSeccionEmpleado(@RequestParam Long empleadoId, @RequestParam Long seccionId) {
         return ResponseEntity.ok(empleadoSeccionService.cambiarSeccionEmpleado(empleadoId, seccionId));
+    }
+
+    @DeleteMapping("/eliminarEmpleadoDeSeccion")
+    public ResponseEntity<Empleado> eliminarEmpleadoDeSeccion(@RequestParam Long empleadoId, @RequestParam Long seccionId) {
+        return ResponseEntity.ok(empleadoSeccionService.eliminarSeccionEmpleado(empleadoId, seccionId));
     }
 }

@@ -59,4 +59,23 @@ public class EmpleadoSeccionService {
 
         return empleado;
     }
+
+    @Transactional
+    public Empleado eliminarSeccionEmpleado(Long empleadoId, Long seccionId) {
+        Optional<Empleado> empleadoOpt = empleadoRepository.findById(empleadoId);
+        Optional<Seccion> seccionOpt = seccionRepository.findById(seccionId);
+
+        if (empleadoOpt.isEmpty() || seccionOpt.isEmpty()) {
+            throw new IllegalArgumentException("No se encontro el empleado o la seccion");
+        }
+
+        Empleado empleado = empleadoOpt.get();
+        Seccion seccion = seccionOpt.get();
+
+        empleado.getSecciones().remove(seccion);
+
+        empleadoRepository.save(empleado);
+
+        return empleado;
+    }
 }
